@@ -2,6 +2,7 @@ import torch
 from diffusers import FluxPipeline
 from openai import OpenAI
 import base64
+import utils
 
 
 def encode_image(image_path: str):
@@ -10,7 +11,7 @@ def encode_image(image_path: str):
 
 
 def get_image_objects(image_path: str) -> str:
-    api_key="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"
+    api_key = utils.get_api_key('openai')
     prompt = '''
     List all the objects in this image, including the background. I have these requirements as follows:
     1. Do not describe the objects in detail, just list them.
@@ -39,11 +40,11 @@ def get_image_objects(image_path: str) -> str:
 def get_instructions(image_path: str) -> list:
     objects = get_image_objects(image_path)
     if not objects:
-        return None
+        return []
     objects = objects.split(" / ")
     instructions = []
     for obj in objects:
-        instructions.append(f"make the {obj} deep dark")
+        instructions.append(f"make the {obj.lower()} deep dark")
     return instructions
 
 
@@ -55,5 +56,5 @@ def get_paired_images(image_path: str):
 
 
 if __name__ == "__main__":
-    for i in get_instructions("./data/101839123902129423.jpg"):
+    for i in get_instructions("./data/stairs.jpg"):
         print(i)

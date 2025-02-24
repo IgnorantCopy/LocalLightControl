@@ -1,8 +1,10 @@
 import torch
 from diffusers import FluxPipeline
 from huggingface_hub import login
+import utils
 
-login("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")
+
+login(utils.get_api_key('huggingface'))
 torch.cuda.empty_cache()
 pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=torch.bfloat16, transformers=None)
 pipe = pipe.to("cuda")
