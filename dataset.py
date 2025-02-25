@@ -15,7 +15,8 @@ def get_image_objects(image_path: str) -> str:
     prompt = '''
     List all the objects in this image, including the background. I have these requirements as follows:
     1. Do not describe the objects in detail, just list them.
-    2. Use '/' to separate different names of the same object if exists.
+    2. Use ',' to separate different names of the same object if exists.
+    3. Do not use capital letters.
     '''
     image_url = {
         "url": f"data:image/jpeg;base64,{encode_image(image_path)}"
@@ -44,7 +45,7 @@ def get_instructions(image_path: str) -> list:
     objects = objects.split(" / ")
     instructions = []
     for obj in objects:
-        instructions.append(f"make the {obj.lower()} deep dark")
+        instructions.append(f"make the image deep dark except for {obj.lower()}")
     return instructions
 
 
@@ -56,5 +57,4 @@ def get_paired_images(image_path: str):
 
 
 if __name__ == "__main__":
-    for i in get_instructions("./data/stairs.jpg"):
-        print(i)
+    print(get_image_objects("data/16775550236168068.jpg"))

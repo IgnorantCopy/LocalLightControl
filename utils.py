@@ -3,7 +3,7 @@ import sys
 
 path_to_key = ""
 if sys.platform.startswith('linux'):
-    path_to_key = "~/mkh/api_key"
+    path_to_key = "/home/nju-student/mkh/api_key"
 elif sys.platform.startswith('win'):
     path_to_key = "C:/Users/Ignorant/Desktop/api_key"
 

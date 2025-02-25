@@ -16,7 +16,9 @@ bar = tqdm.tqdm(total=total)
 with fs.open('data/labels.tsv', encoding='utf-8') as tsv:
     for row in tsv.readlines():
         row = row.strip()
-        img_file, caption, score, url = row.split('\t')
+        info = row.split('\t')
+        img_file = info[0]
+        score = info[-2]
 
         # Load the image file
         img_path = os.path.join('data', img_file)
